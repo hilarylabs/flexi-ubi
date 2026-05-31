@@ -1,21 +1,25 @@
-<div class="container">
+{% if paginator.total_pages > 1 %}
+<div class="pagination-wrapper">
   <nav class="pagination" role="pagination">
-    <ul>
-      {% if paginator.previous_page %}
-        {% if paginator.previous_page == 1 %}
-        <p><a class="newer-posts" href="{{ site.baseurl }}/"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a></p>
-        {% else %}
-        <p><a class="newer-posts" href="{{ site.baseurl }}/page/{{ paginator.previous_page }}/"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a></p>
-        {% endif %}
-      {% endif %}
 
-      {% if paginator.total_pages > 1 %}
-      <p><span class="page-number">Page {{paginator.page}} of {{paginator.total_pages}}</span></p>
+    {% if paginator.previous_page %}
+      {% if paginator.previous_page == 1 %}
+        <a class="pagination-btn" href="{{ site.baseurl }}/">← Sebelum</a>
+      {% else %}
+        <a class="pagination-btn" href="{{ site.baseurl }}/page/{{ paginator.previous_page }}/">← Sebelum</a>
       {% endif %}
-      
-      {% if paginator.next_page %}
-      <p><a class="older-posts" href="{{ site.baseurl }}/page/{{ paginator.next_page }}/"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></p>
-      {% endif %}
-    </ul>
+    {% else %}
+      <span class="pagination-btn disabled">← Sebelum</span>
+    {% endif %}
+
+    <span class="pagination-info">Halaman {{ paginator.page }} / {{ paginator.total_pages }}</span>
+
+    {% if paginator.next_page %}
+      <a class="pagination-btn" href="{{ site.baseurl }}/page/{{ paginator.next_page }}/">Seterus →</a>
+    {% else %}
+      <span class="pagination-btn disabled">Seterus →</span>
+    {% endif %}
+
   </nav>
 </div>
+{% endif %}
